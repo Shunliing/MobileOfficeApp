@@ -45,4 +45,8 @@ dependencies {
     compile 'com.github.gcacace:signature-pad:1.1.0'
     compile project(path: ':viewPagerIndicatorLibrary')
     compile files('src/main/libs/zxing.jar')
+    //Minimal Smack configuration for XMPP over TCP
+    compile "org.igniterealtime.smack:smack-android:4.1.0"
+    compile "org.igniterealtime.smack:smack-tcp:4.1.0"
+
 }

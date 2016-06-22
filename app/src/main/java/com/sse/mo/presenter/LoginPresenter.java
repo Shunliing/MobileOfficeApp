@@ -1,20 +1,16 @@
 package com.sse.mo.presenter;
 
 import com.anupcowkur.reservoir.Reservoir;
-import com.shiki.utils.ReservoirUtils;
+import com.shiki.Xmpp.XmppUtils;
 import com.shiki.utils.StringUtils;
-import com.shiki.utils.coder.MD5Coder;
-import com.sse.mo.bean.ResultBean;
 import com.sse.mo.bean.UserBean;
 import com.sse.mo.core.mvp.BasePresenter;
-import com.sse.mo.logistic.LogisticApi;
 import com.sse.mo.model.impl.LoginModel;
 import com.sse.mo.presenter.iview.LoginView;
 
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -75,10 +71,22 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             return;
         }
         final Boolean isRemember = this.getMvpView().getRemember();
-        this.mCompositeSubscription.add(loginModel.login(usercode, MD5Coder.getMD5Code(passwd))
-                .flatMap(new Func1<ResultBean<UserBean>, Observable<String>>() {
+        this.mCompositeSubscription.add(Observable.just(1)
+                .subscribeOn(Schedulers.io())
+                .map(new Func1<Integer, Boolean>() {
                     @Override
-                    public Observable<String> call(final ResultBean<UserBean> resultBean) {
+                    public Boolean call(Integer integer) {
+                        return XmppUtils.getInstance().login(usercode,passwd);
+                    }
+                })
+                /*.flatMap(new Func1<Boolean, Observable<String>>() {
+                    @Override
+                    public Observable<String> call(Boolean b) {
+                        if(b){
+
+                        }else{
+
+                        }
                         if (resultBean.getStatusCode().equals(LogisticApi.FAILURE_DATA)) {
                             return Observable.just(resultBean.getStatusMessage());
                         } else {
@@ -97,17 +105,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                             });
                         }
                     }
-                })
-                .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        LoginPresenter.this.getMvpView().showLoginProgress();
-                    }
-                })
-                .subscribeOn(AndroidSchedulers.mainThread())
+                })*/
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<String>() {
+                .subscribe(new Subscriber<Boolean>() {
                     @Override
                     public void onCompleted() {
                         LoginPresenter.this.mCompositeSubscription.remove(this);
@@ -120,12 +120,13 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     }
 
                     @Override
-                    public void onNext(String resultError) {
-                        if (resultError != null) {
-                            LoginPresenter.this.getMvpView().hideLoginProgress();
-                            LoginPresenter.this.getMvpView().onFailure(resultError);
-                        } else {
+                    public void onNext(Boolean bool) {
+                        if (bool) {
+                            XmppUtils.getInstance().sendP2PChat("admin","hello");
                             LoginPresenter.this.getMvpView().enterMain();
+                        } else {
+                            LoginPresenter.this.getMvpView().hideLoginProgress();
+                            LoginPresenter.this.getMvpView().onFailure("用户名或密码错误");
                         }
                     }
                 }));

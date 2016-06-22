@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">河马无限快递助手</string>
+    <string name="app_name">移动办公助手</string>
 
     <string name="dl_order_code">订单号</string>
     <string name="dl_delivery_code">配送单号</string>

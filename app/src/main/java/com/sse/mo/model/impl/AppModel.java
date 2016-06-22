@@ -18,7 +18,7 @@ public class AppModel implements IAppModel {
     }
 
     private AppModel() {
-        //LogisticApplication.getApplicationComponent().inject(this);
+        //MoApplication.getApplicationComponent().inject(this);
     }
 
     @Override

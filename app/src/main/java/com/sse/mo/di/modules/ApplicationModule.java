@@ -2,7 +2,7 @@ package com.sse.mo.di.modules;
 
 import android.content.Context;
 
-import com.sse.mo.LogisticApplication;
+import com.sse.mo.MoApplication;
 
 import javax.inject.Singleton;
 
@@ -14,9 +14,9 @@ import dagger.Provides;
  */
 @Module
 public class ApplicationModule {
-    private final LogisticApplication application;
+    private final MoApplication application;
 
-    public ApplicationModule(LogisticApplication application) {
+    public ApplicationModule(MoApplication application) {
         this.application = application;
     }
 

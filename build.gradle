@@ -17,6 +17,11 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        //Smack configuration for XMPP over TCP
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots'
+        }
+        mavenCentral()
     }
 }
 

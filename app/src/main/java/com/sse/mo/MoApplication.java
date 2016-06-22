@@ -16,14 +16,14 @@ import com.sse.mo.logistic.LogisticApi;
 /**
  * Created by Maik on 2016/4/19.
  */
-public class LogisticApplication extends Application {
-    private static LogisticApplication instance = new LogisticApplication();
+public class MoApplication extends Application {
+    private static MoApplication instance = new MoApplication();
     private static ApplicationComponent applicationComponent;
     public boolean log = true;
     public static final long CACHE_DATA_MAX_SIZE = 1024 * 1024 * 3L;
     public Gson gson;
 
-    public static LogisticApplication getInstance() {
+    public static MoApplication getInstance() {
         return instance;
     }
 

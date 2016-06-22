@@ -1,7 +1,7 @@
 package com.sse.mo.logistic;
 
 import com.squareup.okhttp.OkHttpClient;
-import com.sse.mo.LogisticApplication;
+import com.sse.mo.MoApplication;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,7 +31,7 @@ public class LogisticMain {
         /*
          * 查看网络请求发送状况
          */
-        if (LogisticApplication.getInstance().log) {
+        if (MoApplication.getInstance().log) {
             okHttpClient.interceptors().add(new LoggingInterceptor());
         }
 
@@ -39,7 +39,7 @@ public class LogisticMain {
                 .addCallAdapterFactory(
                         RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(
-                        LogisticApplication.getInstance().gson))
+                        MoApplication.getInstance().gson))
                 .client(okHttpClient)
                 .build();
         this.logisticService = retrofit.create(LogisticService.class);

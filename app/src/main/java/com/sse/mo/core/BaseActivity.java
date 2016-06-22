@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import com.sse.mo.LogisticApplication;
+import com.sse.mo.MoApplication;
 import com.sse.mo.di.components.ApplicationComponent;
 import com.sse.mo.di.modules.ActivityModule;
 
@@ -50,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected ApplicationComponent getApplicationComponent() {
-        return ((LogisticApplication)getApplication()).getApplicationComponent();
+        return ((MoApplication)getApplication()).getApplicationComponent();
     }
 
     protected ActivityModule getActivityModule() {
