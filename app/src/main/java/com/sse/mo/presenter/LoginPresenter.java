@@ -122,6 +122,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     @Override
                     public void onNext(Boolean bool) {
                         if (bool) {
+                            //XmppUtils.getInstance().getOfflineMsg();
                             XmppUtils.getInstance().sendP2PChat("admin","hello");
                             LoginPresenter.this.getMvpView().enterMain();
                         } else {
